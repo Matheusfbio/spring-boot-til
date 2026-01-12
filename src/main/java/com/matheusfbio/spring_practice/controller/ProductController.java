@@ -3,12 +3,16 @@ package com.matheusfbio.spring_practice.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.matheusfbio.spring_practice.excepctions.ResourceNotFound;
 import com.matheusfbio.spring_practice.model.Product;
 import com.matheusfbio.spring_practice.service.ProductService;
 
+
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,10 +36,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return productService.getProductById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> getProductById(@PathVariable @NonNull Long id) {
+       try {
+            Product product = productService.getProductById(id);
+            return ResponseEntity.ok(product);
+       } catch (ResourceNotFound e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+       } 
     }
 
     @PostMapping
