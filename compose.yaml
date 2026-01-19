@@ -1,0 +1,41 @@
+services:
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java-app
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8080:8080"  # Exposed by Dockerfile, default Spring Boot port
+    # env_file: ./.env  # Uncomment if .env file exists
+    # Add external service dependencies below if required by the application
+    # depends_on:
+    #   - postgres  # Example: Uncomment if your app requires a database
+    # networks:
+    #   - appnet
+
+# networks:
+#   appnet:
+#     driver: bridge
+
+# If you add external services (e.g., databases), define them below:
+#  postgres:
+#    image: postgres:latest
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: dbname
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U user"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - appnet
+
+# volumes:
+#   postgres_data:

@@ -3,14 +3,12 @@ package com.matheusfbio.spring_practice.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.matheusfbio.spring_practice.excepctions.ResourceNotFound;
 import com.matheusfbio.spring_practice.model.Product;
 import com.matheusfbio.spring_practice.service.ProductService;
 
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
